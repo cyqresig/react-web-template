@@ -5,6 +5,7 @@
 
 
 let test = 333912313123911193;
+let test1 = 123123
 
 let obj = {
     test: 1,
