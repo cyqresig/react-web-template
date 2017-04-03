@@ -1,6 +1,6 @@
 ## react-webpack-template
 
-A project template for react with webpack
+A SPA project template for react with webpack
 
 ## Installation
 
