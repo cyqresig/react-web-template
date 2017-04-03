@@ -1,0 +1,15 @@
+{
+    "extends": "airbnb-base/legacy",
+    "parser": "babel-eslint",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "indent": ["error", 4],
+        "semi": ["error", "never"],
+        "comma-dangle": ["error", "always"]
+    },
+    "globals": {
+        "cc": true
+    }
+}

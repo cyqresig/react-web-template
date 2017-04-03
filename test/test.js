@@ -4,7 +4,7 @@
  */
 
 
-let test = 333912313123911193;
+let test = 111222
 
 let obj = {
     test: 1,

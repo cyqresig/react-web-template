@@ -1,0 +1,21 @@
+{
+    "name": "react-webpack-template",
+    "version": "1.0.0",
+    "description": "A project template for react with webpack",
+    "main": "index.js",
+    "scripts": {
+        "eslint": "eslint . --quiet"
+    },
+    "pre-commit": [
+        "eslint"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-eslint": "^7.2.1",
+        "eslint": "^3.19.0",
+        "eslint-config-airbnb-base": "^11.1.2",
+        "eslint-plugin-import": "^2.2.0",
+        "pre-commit": "^1.2.2"
+    }
+}
