@@ -1,15 +1,47 @@
 {
-    "extends": "airbnb-base/legacy",
+    "extends": ["airbnb-base/legacy", "eslint:all", "plugin:react/all"],
     "parser": "babel-eslint",
     "plugins": [
-        "import"
+        "import",
+        "react"
     ],
     "rules": {
-        "indent": ["error", 4],
+        "indent": ["error", 4, {
+            "SwitchCase": 1
+        }],
         "semi": ["error", "never"],
-        "comma-dangle": ["error", "always"]
+        "comma-dangle": ["error", "always"],
+        "comma-spacing": "off",
+        "object-curly-spacing": "off",
+        "class-methods-use-this": "off",
+        "global-require": "off",
+        "object-curly-newline": "off",
+        "arrow-body-style": "off",
+        "no-ternary": "off",
+        "no-trailing-spaces": "off",
+        "newline-before-return": "off",
+        "newline-after-var": "off",
+        "sort-keys": "off",
+        "sort-imports": "off",
+        "sort-vars": "off",
+        "arrow-parens": "off",
+        "no-inline-comments": "off",
+        "no-process-env": "off",
+        "require-await": "off",
+        "no-negated-condition": "off",
+        "line-comment-position": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/forbid-prop-types": "off",
+        "react/jsx-space-before-closing": "off",
+        "react/jsx-tag-spacing": "off",
+        "react/jsx-closing-bracket-location": "off",
+        "react/jsx-no-literals": "off",
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
+        "react/jsx-max-props-per-line": "off"
     },
     "globals": {
-        "cc": true
+        "Promise": true,
+        "require": true
     }
 }
