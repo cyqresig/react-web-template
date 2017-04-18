@@ -4,28 +4,72 @@
  */
 
 import React, {Component,} from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import TodoList from '../component/TodoList'
+// import { bindActionCreators, } from 'redux'
+import { connect, } from 'react-redux'
 
+import action from '../action'
+import Todo from '../component/Todo'
+import './TodoListContainer.pcss'
+
+@connect(
+    state => ({
+        todoList: state.todoList,
+    }),
+    action.todo,
+    // state => ({
+    //     todoList: state.todoList,
+    //     todo: state.todo,
+    // }),
+    // dispatch => bindActionCreators(action.todo, dispatch)
+
+)
 class TodoListContainer extends Component {
-
 
     constructor(props) {
         super(props)
         this.state = {}
     }
 
-    shouldComponentUpdate() {
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-    }
 
     render() {
-        const {todoList,} = this.props
-
+        const {
+            todoList: {
+               todos,
+            },
+            removeTodo,
+            router,
+        } = this.props
         return (
-            <TodoList
-                todoList={todoList}/>
+            <div className="todo-list">
+                {
+                    todos.map((todo) => {
+                        const {
+                            id,
+                            complete,
+                            title,
+                        } = todo
+                        return (
+                            <Todo
+                                key={id}
+                                id={id}
+                                complete={complete}
+                                title={title}
+                                remove={removeTodo}
+                                router={router}/>
+                        )
+                    })
+                }
+                <input type="button" className="button" onClick={this.handleAddTodoClick} value="新增任务"/>
+            </div>
         )
+    }
+
+    handleAddTodoClick = () => {
+        this.props.addTodo({
+            id: 0,
+            title: '新任务',
+            complete: false,
+        })
     }
 }
 

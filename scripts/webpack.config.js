@@ -13,9 +13,6 @@ const cssnext = require(`postcss-cssnext`)
 const numeral = require(`numeral`)
 const logUpdate = require(`log-update`)
 const ip = require(`ip`)
-
-const config = require(`./config`)
-
 const DEVELOPMENT_IP = ip.address()
 const DEVELOPMENT_PORT = `9090`
 const SOURCE_PATH = `src`
@@ -92,6 +89,7 @@ const webpackConfig = {
     entry: {
         [COMMON_CHUNK_NAME]: [
             // remove babel-polyfill according to https://github.com/pigcan/blog/issues/1
+            // `babel-polyfill`,
             `react`,
             `react-dom`,
             `redux`,
@@ -103,7 +101,7 @@ const webpackConfig = {
         ],
     },
     output: {
-        path: RELEASE_PATH,
+        path: path.resolve(__dirname, RELEASE_PATH),
         filename: `js/[name].js`,
     },
     module: {
@@ -128,15 +126,14 @@ const webpackConfig = {
 }
 
 // get entry
-const entryNameList = fs.readdirSync(SOURCE_PATH).filter((item) => {
-    return !/\.|^_/g.test(item)
+const entryNameList = fs.readdirSync(path.join(SOURCE_PATH, MAIN_FOLDER)).map((filename) => {
+    return path.basename(filename, `.js`)
 })
 
 // set entry
 entryNameList.forEach((entryName) => {
-
     webpackConfig.entry[entryName] = [
-        path.join(__dirname, `./${SOURCE_PATH}/${MAIN_FOLDER}/${entryName}.js`),
+        path.join(__dirname, `../${SOURCE_PATH}/${MAIN_FOLDER}/${entryName}.js`),
     ]
 
     webpackConfig.plugins.push(new HtmlWebpackPlugin({
@@ -170,8 +167,24 @@ switch (NODE_ENV) {
             webpackConfig.entry[entryName].unshift(`react-hot-loader/patch`)
         })
 
-        webpackConfig.devtool = `cheap-eval-module-source-map`
+        webpackConfig.devtool = `eval`
         webpackConfig.output.publicPath = `/`
+
+        webpackConfig.devServer = {
+            contentBase: [
+                RELEASE_PATH,
+            ],
+            hot: true,
+            historyApiFallback: true,
+            host: DEVELOPMENT_IP,
+            port: DEVELOPMENT_PORT,
+            stats: {
+                colors: true,
+                verbose: true,
+            },
+            //open: true,
+            open: false,
+        }
 
         webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
         webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())
@@ -180,7 +193,7 @@ switch (NODE_ENV) {
         }))
         break
     default:
-        webpackConfig.devtool = `cheap-module-source-map`
+        webpackConfig.devtool = `source-map`
         webpackConfig.output.publicPath = `./`
         break
 }

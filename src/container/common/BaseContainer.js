@@ -4,10 +4,9 @@
  */
 
 import React, {Component, PropTypes, cloneElement,} from 'react'
-import AppWrapperComponent from '../../components/common/AppWrapperComponent'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
+import './BaseContainer.pcss'
 
-class Base extends Component {
+class BaseContainer extends Component {
 
     static defaultProps = {
         children: [],
@@ -16,12 +15,8 @@ class Base extends Component {
 
     static propTypes = {
         children: React.PropTypes.node,
-        location: PropTypes.string,
+        location: PropTypes.object,
     };
-
-    shouldComponentUpdate() {
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-    }
 
     render() {
         const {
@@ -30,14 +25,22 @@ class Base extends Component {
         } = this.props
 
         return (
-            <AppWrapperComponent>
-                {cloneElement(children, {
-                    key: location.pathname,
-                })}
-            </AppWrapperComponent>
+            <div className="base">
+                <header>
+                    React Webpack Template
+                </header>
+                <div className="content">
+                    {cloneElement(children, {
+                        key: location.pathname,
+                    })}
+                </div>
+                <footer>
+                    copyright
+                </footer>
+            </div>
         )
     }
 
 }
 
-export default Base
+export default BaseContainer

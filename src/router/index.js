@@ -6,7 +6,7 @@
 
 import BaseContainer from '../container/common/BaseContainer'
 import NoMatchContainer from '../container/common/NoMatchContainer'
-import TodoContainer from '../container/TodoContainer'
+import TodoInfoContainer from '../container/TodoInfoContainer'
 import TodoListContainer from '../container/TodoListContainer'
 
 const noMatchRoute = {
@@ -19,7 +19,7 @@ const TodoListRoute = {
 }
 const TodoInfoRoute = {
     path: 'todo(/:id)',
-    component: TodoContainer,
+    component: TodoInfoContainer,
 }
 
 const route = {

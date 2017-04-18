@@ -3,36 +3,20 @@
  * @author chenyiqin
  */
 
-import React, {Component, PropTypes,} from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {connect,} from 'react-redux'
+import React from 'react'
 
-class NoMatchContainer extends Component {
-
-    static propTypes = {
-        location: PropTypes.string,
-        params: React.PropTypes.object,
-    };
-
-    shouldComponentUpdate() {
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-    }
-
-    render() {
-        const {
-            params,
-            location,
-        } = this.props
-
-        return (
-            <div>
-                {JSON.stringify(params)}
-                {JSON.stringify(location)}
-            </div>
-        )
-    }
+const NoMatch = (props) => {
+    const {
+        params,
+        location,
+    } = props
+    return (
+        <div>
+            没有匹配到的路由，参数如下：<br/>
+            {JSON.stringify(params)}<br/>
+            {JSON.stringify(location)}
+        </div>
+    )
 }
 
-export default connect(
-    null,
-    null)(NoMatchContainer)
+export default NoMatch

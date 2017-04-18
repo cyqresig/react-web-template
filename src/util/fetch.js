@@ -5,14 +5,14 @@
 
 import url from 'url'
 import fetch from 'isomorphic-fetch'
-import {TimeoutError, RequestError, ServerError,} from '../error'
+import {TimeoutError, RequestError, ServerError, UnauthorizedError,} from '../error'
 import {DEFAULT_TIMEOUT, METHOD,} from '../constant/request'
 import {MOCK_SERVER_DELAY,} from '../constant/server'
 import * as envType from '../constant/node-env-type'
 import nodeEnv from '../constant/node-env'
 
-const requestSuccessCode = 200
-const serverSuccessCode = 0
+const SERVER_SUCCESS_CODE = 200
+const UNAUTHORIZED_CODE = 401
 
 const basicFormOptions = {
     headers: {
@@ -82,12 +82,14 @@ export default async (options) => {
 
     const response = await Promise.race([timeoutPromise(timeout), request(fetchOptions),])
 
-    if (response.status !== requestSuccessCode) {
+    if (response.status === UNAUTHORIZED_CODE) {
+        throw new UnauthorizedError(response)
+    } else if (response.status !== SERVER_SUCCESS_CODE) {
         throw new RequestError()
     } else {
         const res = response.json()
-        if (res.code < serverSuccessCode) {
-            throw new ServerError()
+        if (res.code !== SERVER_SUCCESS_CODE) {
+            throw new ServerError(res)
         } else {
             return res.data
         }

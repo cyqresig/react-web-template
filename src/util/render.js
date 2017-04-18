@@ -4,13 +4,13 @@
  */
 
 import {render,} from 'react-dom'
-import {Provider,} from 'react-redux'                   // eslint-disable-line no-unused-vars
-import {HotLoaderContainer,} from 'react-hot-loader'    // eslint-disable-line no-unused-vars
+import {Provider,} from 'react-redux'
+import {AppContainer,} from 'react-hot-loader'
 import {Router, hashHistory,} from 'react-router'
 import {syncHistoryWithStore,} from 'react-router-redux'
-import React, {Component, Children, createElement,} from 'react' // eslint-disable-line no-unused-vars
+import React, {Children, createElement,} from 'react'
 import store from './store'
-const ID_SELECTOR = 'main'
+const SELECTOR = 'main'
 const history = syncHistoryWithStore(hashHistory, store)
 
 // hack around https://github.com/gaearon/react-hot-boilerplate/pull/61#issuecomment-211504531
@@ -33,11 +33,11 @@ Router.prototype.componentWillReceiveProps = (nextProps) => {
 
 export default (routes) => {
     return render(
-        <HotLoaderContainer>
+        <AppContainer>
             <Provider store={store}>
                 <Router history={history} routes={routes}/>
             </Provider>
-        </HotLoaderContainer>,
-        document.getElementById(ID_SELECTOR)
+        </AppContainer>,
+        document.getElementById(SELECTOR)
     )
 }

@@ -7,15 +7,16 @@ import * as actionType from '../constant/action-type'
 import createReducer from '../util/createReducer'
 
 const initialState = {
+    id: 1,
+    title: 'todo-1',
     complete: false,
-    id: 0,
-    title: '',
 }
 
 export default createReducer(initialState, {
     [actionType.GET_TODO]: (state, action) => {
         return {
-            ...action.data,
+            ...state,
+            bookDetails: action.bookDetails,
         }
     },
 })

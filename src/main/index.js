@@ -3,15 +3,13 @@
  * @author chenyiqin
  */
 
-import render from '../util/render'
-import routes from '../routes'
+import renderPage from '../pages/index'
 
-render(routes)
+renderPage()
 
 if (module.hot) {
     module.hot.accept('../pages/index', () => {
-        const newPage = require('../pages/index').default
-
-        newPage()
+        const renderNewPage = require('../pages/index').default
+        renderNewPage()
     })
 }

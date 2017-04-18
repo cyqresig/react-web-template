@@ -23,14 +23,15 @@ export default {
             })
         }
     },
-    addTodo: data => {
-        return dispatch => {
-            dispatch({
-                data,
-                type: actionType.ADD_TODO,
-            })
-        }
-    },
+    addTodo: () => ({
+        type: actionType.ADD_TODO,
+        todo: {
+            id: 0,
+            title: '新任务',
+            complete: false,
+        },
+    }),
+
     editTodo: data => {
         return dispatch => {
             dispatch({
@@ -39,12 +40,8 @@ export default {
             })
         }
     },
-    removeTodo: data => {
-        return dispatch => {
-            dispatch({
-                data,
-                type: actionType.REMOVE_TODO,
-            })
-        }
-    },
+    removeTodo: (id) => ({
+        type: actionType.REMOVE_TODO,
+        id,
+    }),
 }
