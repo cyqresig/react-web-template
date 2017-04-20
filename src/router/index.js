@@ -4,10 +4,10 @@
  */
 
 
-import BaseContainer from '../container/common/BaseContainer'
+import BaseRouteContainer from '../container/router/BaseRoute'
 import NoMatchContainer from '../container/common/NoMatchContainer'
-import TodoInfoContainer from '../container/TodoInfoContainer'
-import TodoListContainer from '../container/TodoListContainer'
+import TodoInfoRouteContainer from '../container/router/TodoInfoRoute'
+import TodoListRouteContainer from '../container/router/TodoListRoute'
 
 const noMatchRoute = {
     path: '*',
@@ -15,18 +15,18 @@ const noMatchRoute = {
 }
 const TodoListRoute = {
     path: 'todo-list',
-    component: TodoListContainer,
+    component: TodoListRouteContainer,
 }
 const TodoInfoRoute = {
     path: 'todo(/:id)',
-    component: TodoInfoContainer,
+    component: TodoInfoRouteContainer,
 }
 
 const route = {
     path: '/',
-    component: BaseContainer,
+    component: BaseRouteContainer,
     indexRoute: {
-        component: TodoListContainer,
+        component: TodoListRouteContainer,
     },
     childRoutes: [
         TodoListRoute,

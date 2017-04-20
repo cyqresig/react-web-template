@@ -6,9 +6,11 @@
 import RequestError from './RequestError'
 import ServerError from './ServerError'
 import TimeoutError from './TimeoutError'
+import UnauthorizedError from './UnauthorizedError'
 
-export default {
+export {
     RequestError,
     ServerError,
     TimeoutError,
+    UnauthorizedError,
 }

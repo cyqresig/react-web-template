@@ -4,8 +4,8 @@
  * @author chenyiqin
  */
 
-export const MOCK_SERVER_DELAY = 500
-export const SERVER_PATH = 'http://api.example.com'
+export const MOCK_SERVER_DELAY = 1000
+export const SERVER_PATH = ''
 export const TODO_MODULE = 'todo'
 export const SAVE_TODO_MODULE = 'saveTodo'
 export const REMOVE_TODO_MODULE = 'removeTodo'

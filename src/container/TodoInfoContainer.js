@@ -32,7 +32,7 @@ class TodoContainer extends Component {
         // const {todo,} = this.props
 
         return (
-            <div className="todo">id: {this.props.params.id}</div>
+            <div className="todo">id: {this.props.router.params.id}</div>
         )
     }
 }

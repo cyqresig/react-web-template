@@ -3,7 +3,7 @@
  * @author chenyiqin
  */
 
-import todo from './todo'
+import * as todo from './todo'
 
 export default {
     todo,

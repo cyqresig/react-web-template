@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "eslint": "eslint . --quiet",
-        "dev": "cross-env NODE_ENV=development node ./scripts/dev.js"
+        "start": "cross-env NODE_ENV=development node ./scripts/dev.js"
     },
     "pre-commit": [
         "eslint"
@@ -16,6 +16,7 @@
         "babel-core": "^6.24.0",
         "babel-eslint": "^7.2.1",
         "babel-loader": "^6.4.1",
+        "babel-plugin-import": "^1.1.1",
         "babel-plugin-transform-decorators-legacy": "^1.3.4",
         "babel-plugin-transform-runtime": "^6.23.0",
         "babel-polyfill": "^6.23.0",
@@ -37,7 +38,6 @@
         "html-webpack-plugin": "^2.28.0",
         "i18n": "^0.8.3",
         "ip": "^1.1.5",
-        "isomorphic-fetch": "^2.2.1",
         "js-cookie": "^2.1.4",
         "json-loader": "^0.5.4",
         "less": "^2.7.2",
@@ -65,7 +65,9 @@
         "style-loader": "^0.16.1",
         "url-loader": "^0.5.8",
         "webpack": "^2.3.3",
-        "webpack-dev-server": "^2.4.2"
+        "webpack-dev-server": "^2.4.2",
+        "webpack-module-hot-accept": "^1.0.5",
+        "whatwg-fetch": "^2.0.3"
     },
     "browserslist": [
         "> 1%"

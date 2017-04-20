@@ -4,12 +4,16 @@
  */
 
 import url from 'url'
-import fetch from 'isomorphic-fetch'
-import {TimeoutError, RequestError, ServerError, UnauthorizedError,} from '../error'
+import 'whatwg-fetch'
+import { RequestError, ServerError, TimeoutError, UnauthorizedError, } from '../error'
 import {DEFAULT_TIMEOUT, METHOD,} from '../constant/request'
 import {MOCK_SERVER_DELAY,} from '../constant/server'
 import * as envType from '../constant/node-env-type'
 import nodeEnv from '../constant/node-env'
+
+if (nodeEnv === envType.DEVELOPMENT) {
+    require('../../mock')
+}
 
 const SERVER_SUCCESS_CODE = 200
 const UNAUTHORIZED_CODE = 401
@@ -35,6 +39,10 @@ const timeoutPromise = async (timeout) => {
 }
 
 const request = async (options) => {
+    if (nodeEnv === envType.DEVELOPMENT) {
+        await timeoutSimulation(MOCK_SERVER_DELAY)
+    }
+
     const {
         method = METHOD.GET,
         data,
@@ -67,10 +75,6 @@ const request = async (options) => {
         default:
     }
 
-    if (nodeEnv === envType.DEVELOPMENT) {
-        timeoutSimulation(MOCK_SERVER_DELAY)
-    }
-
     return response
 }
 
@@ -87,7 +91,7 @@ export default async (options) => {
     } else if (response.status !== SERVER_SUCCESS_CODE) {
         throw new RequestError()
     } else {
-        const res = response.json()
+        const res = await response.json()
         if (res.code !== SERVER_SUCCESS_CODE) {
             throw new ServerError(res)
         } else {

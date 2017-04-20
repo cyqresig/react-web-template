@@ -7,6 +7,7 @@ import { createStore, combineReducers, compose, applyMiddleware, } from 'redux'
 import { routerMiddleware, } from 'react-router-redux'
 import { hashHistory, } from 'react-router'
 import thunk from 'redux-thunk'
+import '../reducers/index'
 
 import reducers from '../reducers'
 
@@ -19,8 +20,8 @@ const store = createStore(combineReducers(reducers), compose(
 
 if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-        const nextRootReducer = require('../reducers').default
+    module.hot.accept('../reducers/index', () => {
+        const nextRootReducer = require('../reducers/index').default
         store.replaceReducer(combineReducers(nextRootReducer))
     })
 }

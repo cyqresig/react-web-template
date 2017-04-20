@@ -1,17 +1,15 @@
 /**
- * @since 2016-06-05 11:40
- * @author vivaxy
+ * @fileoverview UnauthorizedError
+ * @since 2017-04-04 15:26
+ * @author chenyiqin
  */
 
-import * as errors from '../conf/errors'
-
-export default class UnauthorizedError extends Error {
-    constructor() {
-        super(`用户未登录`)
-        this.name = errors.UNAUTHORIZED
+class UnauthorizedError extends Error {
+    constructor(message = '用户未登录') {
+        super(message)
+        this.name = 'unauthorized'
     }
 }
 
-UnauthorizedError.create = (timeout) => {
-    return new UnauthorizedError(timeout)
-}
+export default UnauthorizedError
+

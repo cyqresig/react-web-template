@@ -16,12 +16,6 @@ import './TodoListContainer.pcss'
         todoList: state.todoList,
     }),
     action.todo,
-    // state => ({
-    //     todoList: state.todoList,
-    //     todo: state.todo,
-    // }),
-    // dispatch => bindActionCreators(action.todo, dispatch)
-
 )
 class TodoListContainer extends Component {
 
@@ -30,11 +24,18 @@ class TodoListContainer extends Component {
         this.state = {}
     }
 
+    componentDidMount() {
+        const {
+            getTodoList,
+        } = this.props
+        getTodoList()
+    }
 
     render() {
         const {
             todoList: {
                todos,
+               fetching,
             },
             removeTodo,
             router,
@@ -59,6 +60,7 @@ class TodoListContainer extends Component {
                         )
                     })
                 }
+                { fetching ? <div>loading...<br/><br/><br/></div> : null }
                 <input type="button" className="button" onClick={this.handleAddTodoClick} value="新增任务"/>
             </div>
         )
