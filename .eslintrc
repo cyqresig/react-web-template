@@ -33,6 +33,7 @@
         "line-comment-position": "off",
         "no-extra-parens": "off",
         "max-len": "off",
+        "max-statements": "off",
         "id-length": "off",
         "no-invalid-this": "off",
         "no-magic-numbers": "off",
