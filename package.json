@@ -30,6 +30,7 @@
         "css-loader": "^0.28.0",
         "eslint": "^3.19.0",
         "eslint-config-airbnb-base": "^11.1.2",
+        "eslint-config-vanadis": "^1.0.0",
         "eslint-plugin-import": "^2.2.0",
         "eslint-plugin-react": "^6.10.3",
         "extract-text-webpack-plugin": "^2.1.0",
