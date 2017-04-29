@@ -1,7 +1,7 @@
 {
     "name": "react-webpack-template",
     "version": "1.0.0",
-    "description": "A project template for react with webpack",
+    "description": "A SPA project template for react with webpack",
     "main": "index.js",
     "scripts": {
         "eslint": "eslint . --quiet",
