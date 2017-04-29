@@ -3,13 +3,14 @@
  * @author chenyiqin
  */
 
-import {render,} from 'react-dom'
-import {Provider,} from 'react-redux'
-import {AppContainer,} from 'react-hot-loader'
-import {Router, hashHistory,} from 'react-router'
-import {syncHistoryWithStore,} from 'react-router-redux'
 import React, {Children, createElement,} from 'react'
+import {Router, hashHistory,} from 'react-router'
+import {AppContainer,} from 'react-hot-loader'
+import {Provider,} from 'react-redux'
+import {render,} from 'react-dom'
 import store from './store'
+import {syncHistoryWithStore,} from 'react-router-redux'
+
 const SELECTOR = 'main'
 const history = syncHistoryWithStore(hashHistory, store)
 

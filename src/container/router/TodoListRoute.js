@@ -6,12 +6,17 @@
 import React from 'react'
 import TodoListContainer from '../TodoListContainer'
 
+const setRef = (component) => {
+    console.log(`component.getWrappedInstance() = `, component.getWrappedInstance())    // eslint-disable-line
+}
+
 const TodoListRouteContainer = (props) => {
     const {
         router,
     } = props
+
     return (
-        <TodoListContainer router={router}/>
+        <TodoListContainer ref={setRef} router={router}/>
     )
 }
 

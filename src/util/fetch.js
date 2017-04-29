@@ -2,14 +2,13 @@
  * @since 2017-04-04 12:08
  * @author chenyiqin
  */
-
-import url from 'url'
 import 'whatwg-fetch'
-import { RequestError, ServerError, TimeoutError, UnauthorizedError, } from '../error'
-import {DEFAULT_TIMEOUT, METHOD,} from '../constant/request'
-import {MOCK_SERVER_DELAY,} from '../constant/server'
 import * as envType from '../constant/node-env-type'
+import { DEFAULT_TIMEOUT, METHOD, } from '../constant/request'
+import { RequestError, ServerError, TimeoutError, UnauthorizedError, } from '../error'
+import { MOCK_SERVER_DELAY, } from '../constant/server'
 import nodeEnv from '../constant/node-env'
+import url from 'url'
 
 if (nodeEnv === envType.DEVELOPMENT) {
     require('../../mock')
@@ -83,7 +82,6 @@ export default async (options) => {
         timeout = DEFAULT_TIMEOUT,
         ...fetchOptions
     } = options
-
     const response = await Promise.race([timeoutPromise(timeout), request(fetchOptions),])
 
     if (response.status === UNAUTHORIZED_CODE) {
@@ -92,6 +90,7 @@ export default async (options) => {
         throw new RequestError()
     } else {
         const res = await response.json()
+
         if (res.code !== SERVER_SUCCESS_CODE) {
             throw new ServerError(res)
         } else {

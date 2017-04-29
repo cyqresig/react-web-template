@@ -22,9 +22,10 @@ export const getTodoList = () => {
         dispatch(fetchingTodoList(true))
         try {
             const json = await todoApi.getTodoList()
+
             dispatch(receiveTodoList(json))
         } catch (ex) {
-            console.log(`ex = `, ex)
+            console.log(`ex = `, ex)    // eslint-disable-line
         } finally {
             dispatch(fetchingTodoList(false))
         }

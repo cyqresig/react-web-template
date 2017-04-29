@@ -3,19 +3,29 @@
  * @author chenyiqin
  */
 
-import React, {Component,} from 'react'
+import './TodoListContainer.pcss'
+import React, { Component, } from 'react'
+import Todo from '../component/Todo'
+import action from '../action'
 // import { bindActionCreators, } from 'redux'
 import { connect, } from 'react-redux'
-
-import action from '../action'
-import Todo from '../component/Todo'
-import './TodoListContainer.pcss'
 
 @connect(
     state => ({
         todoList: state.todoList,
     }),
     action.todo,
+    (stateProps, dispatchProps, ownProps) => {
+        return {
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        }
+    },
+    {
+        pure: true,
+        withRef: true,
+    }
 )
 class TodoListContainer extends Component {
 
@@ -28,18 +38,30 @@ class TodoListContainer extends Component {
         const {
             getTodoList,
         } = this.props
+
         getTodoList()
+    }
+
+    handleAddTodoClick = () => {
+        this.props.addTodo({
+            id: 0,
+            title: '新任务',
+            complete: false,
+        })
     }
 
     render() {
         const {
             todoList: {
-               todos,
-               fetching,
+                todos,
+                fetching,
             },
             removeTodo,
             router,
         } = this.props
+
+        console.log(`todos.length = `, todos.length)    // eslint-disable-line
+
         return (
             <div className="todo-list">
                 {
@@ -49,9 +71,11 @@ class TodoListContainer extends Component {
                             complete,
                             title,
                         } = todo
+
                         return (
                             <Todo
                                 key={id}
+                                // key={index}
                                 id={id}
                                 complete={complete}
                                 title={title}
@@ -64,14 +88,6 @@ class TodoListContainer extends Component {
                 <input type="button" className="button" onClick={this.handleAddTodoClick} value="新增任务"/>
             </div>
         )
-    }
-
-    handleAddTodoClick = () => {
-        this.props.addTodo({
-            id: 0,
-            title: '新任务',
-            complete: false,
-        })
     }
 }
 

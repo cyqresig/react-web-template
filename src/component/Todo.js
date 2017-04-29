@@ -3,13 +3,12 @@
  * @author chenyiqin
  */
 
-import React, {Component, PropTypes,} from 'react'
-import noop from 'lodash.noop'
-import classNames from 'classnames'
 import './Todo.pcss'
+import React, { PropTypes, PureComponent, } from 'react'
+import classNames from 'classnames'
+import noop from 'lodash.noop'
 
-
-class Todo extends Component {
+class Todo extends PureComponent {
 
     static defaultProps = {
         complete: false,
@@ -33,6 +32,7 @@ class Todo extends Component {
             id,
             title,
         } = props
+
         this.state = {
             complete,
             id,
@@ -40,10 +40,19 @@ class Todo extends Component {
         }
     }
 
+    handleRemoveTodoClick = () => {
+        this.props.remove(this.state.id)
+    }
+
+    handleViewTodoClick = () => {
+        this.props.router.push(`/todo/${this.state.id}`)
+    }
 
     render() {
+        // console.log(`render ... todo-data`)
         const { complete, id, title, } = this.state
         const statusClassName = classNames('status', complete ? 'complete' : '')
+
         return (
             <div className="todo">
                 <span className="label">标题：{title}</span>
@@ -53,14 +62,6 @@ class Todo extends Component {
                 <input className="button" type="button" onClick={this.handleRemoveTodoClick} value="删除任务"/>
             </div>
         )
-    }
-
-    handleRemoveTodoClick = () => {
-        this.props.remove(this.state.id)
-    }
-
-    handleViewTodoClick = () => {
-        this.props.router.push(`/todo/${this.state.id}`)
     }
 }
 

@@ -3,9 +3,8 @@
  * @author chenyiqin
  */
 
-
-import React from 'react'
 import BaseContainer from '../common/BaseContainer'
+import React from 'react'
 
 const BaseRouteContainer = (props) => {
     const {
@@ -13,6 +12,7 @@ const BaseRouteContainer = (props) => {
         children,
         location,
     } = props
+
     return (
         <BaseContainer router={router} location={location}>
             {children}

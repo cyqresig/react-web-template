@@ -33,11 +33,13 @@ export default createReducer(initialState, {
             todos: [...state.todos, {
                 id: state.todos.length === 0 ? 1 : state.todos.reduce((lastTodo, todo) => {
                     let nextTodo = null
+
                     if (lastTodo && lastTodo.id > todo.id) {
                         nextTodo = lastTodo
                     } else {
                         nextTodo = todo
                     }
+
                     return nextTodo
                 }).id + 1,
                 title: '新任务',

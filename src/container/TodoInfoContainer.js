@@ -3,12 +3,11 @@
  * @author chenyiqin
  */
 
-import React, {Component,} from 'react'
+import './TodoInfoContainer.pcss'
+import * as action from '../action'
+import React, {PureComponent,} from 'react'
 // import { bindActionCreators, } from 'redux'
 import { connect, } from 'react-redux'
-
-import * as action from '../action'
-import './TodoInfoContainer.pcss'
 
 @connect(
     state => ({
@@ -21,7 +20,7 @@ import './TodoInfoContainer.pcss'
     // }),
     // dispatch => bindActionCreators(action.todo, dispatch)
 )
-class TodoContainer extends Component {
+class TodoInfoContainer extends PureComponent {
 
     constructor(props) {
         super(props)
@@ -35,6 +34,7 @@ class TodoContainer extends Component {
             <div className="todo">id: {this.props.router.params.id}</div>
         )
     }
+
 }
 
-export default TodoContainer
+export default TodoInfoContainer

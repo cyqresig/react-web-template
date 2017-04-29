@@ -3,10 +3,10 @@
  * @author chenyiqin
  */
 
-import React, {Component, PropTypes, cloneElement,} from 'react'
 import './BaseContainer.pcss'
+import React, {PropTypes, PureComponent, cloneElement,} from 'react'
 
-class BaseContainer extends Component {
+class BaseContainer extends PureComponent {
 
     static defaultProps = {
         children: [],

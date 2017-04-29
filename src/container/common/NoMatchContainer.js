@@ -10,6 +10,7 @@ const NoMatch = (props) => {
         params,
         location,
     } = props
+
     return (
         <div>
             没有匹配到的路由，参数如下：<br/>

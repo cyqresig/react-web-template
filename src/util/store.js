@@ -3,13 +3,12 @@
  * @author chenyiqin
  */
 
-import { createStore, combineReducers, compose, applyMiddleware, } from 'redux'
-import { routerMiddleware, } from 'react-router-redux'
-import { hashHistory, } from 'react-router'
-import thunk from 'redux-thunk'
 import '../reducers/index'
-
+import { applyMiddleware, combineReducers, compose, createStore, } from 'redux'
+import { hashHistory, } from 'react-router'
 import reducers from '../reducers'
+import { routerMiddleware, } from 'react-router-redux'
+import thunk from 'redux-thunk'
 
 const routing = routerMiddleware(hashHistory)
 
@@ -22,6 +21,7 @@ if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers/index', () => {
         const nextRootReducer = require('../reducers/index').default
+
         store.replaceReducer(combineReducers(nextRootReducer))
     })
 }
