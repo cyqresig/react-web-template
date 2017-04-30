@@ -7,7 +7,9 @@ import React from 'react'
 import TodoListContainer from '../TodoListContainer'
 
 const setRef = (component) => {
-    console.log(`component.getWrappedInstance() = `, component.getWrappedInstance())    // eslint-disable-line
+    if (component !== null) {
+        console.log(`component.getWrappedInstance() = `, component.getWrappedInstance())    // eslint-disable-line
+    }
 }
 
 const TodoListRouteContainer = (props) => {
