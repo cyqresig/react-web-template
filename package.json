@@ -1,6 +1,6 @@
 {
   "name": "react-spa-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A SPA project template for react with webpack",
   "main": "index.js",
   "scripts": {
