@@ -88,7 +88,7 @@ const fileRule = {
 const webpackConfig = {
     entry: {
         [COMMON_CHUNK_NAME]: [
-            // remove babel-polyfill according to https://github.com/pigcan/blog/issues/1
+            `babel-polyfill`,
             `whatwg-fetch`,
             `react`,
             `react-dom`,
