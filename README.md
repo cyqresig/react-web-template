@@ -8,5 +8,7 @@ A SPA project template for react with webpack
 
 ## Usage
 
+`yarn run dll` [only once]
+
 `yarn start`
 

@@ -6,6 +6,7 @@
 const fs = require(`fs`)
 const path = require(`path`)
 const webpack = require(`webpack`)
+const HappyPack = require(`happypack`)
 const HtmlWebpackPlugin = require(`html-webpack-plugin`)
 const PostcssImport = require(`postcss-import`)
 const precss = require(`precss`)
@@ -26,54 +27,154 @@ const VIEW_FOLDER = `view`
 const COMMON_CHUNK_NAME = `common`
 const NODE_ENV = process.env.NODE_ENV || PRODUCTION
 
+// const jsRule = {
+//     test: /\.js$/,
+//     exclude: /node_modules/,
+//     use: [
+//         `babel-loader`,
+//     ],
+// }
+//
+// const cssRule = {
+//     test: /\.css$/,
+//     use: [
+//         `style-loader`,
+//         `css-loader`,
+//     ],
+// }
+//
+// const pcssRule = {
+//     test: /\.pcss$/,
+//     use: [
+//         `style-loader`,
+//         `css-loader`,
+//         {
+//             loader: `postcss-loader`,
+//             options: {
+//                 plugins: function () {
+//                     return [
+//                         PostcssImport(),
+//                         precss(),
+//                         cssnext(),
+//                     ]
+//                 },
+//             },
+//         },
+//     ],
+// }
+//
+// const lessRule = {
+//     test: /\.less$/,
+//     use: [
+//         `style-loader`,
+//         `css-loader`,
+//         `less-loader`,
+//     ],
+// }
+//
+// const fileRule = {
+//     test: /\.(png|jpg|gif)$/,
+//     use: [
+//         {
+//             loader: `url-loader`,
+//             options: {
+//                 limit: 8192,
+//                 name: `images/[name]-[hash].[ext]`,
+//             },
+//         },
+//     ],
+// }
+
+
+// Ensure `postcss` key is extracted
+HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss'])
+
 const jsRule = {
     test: /\.js$/,
     exclude: /node_modules/,
     use: [
-        `babel-loader`,
+        `happypack/loader?id=js`,
     ],
 }
 
 const cssRule = {
     test: /\.css$/,
     use: [
-        `style-loader`,
-        `css-loader`,
+        `happypack/loader?id=css`
     ],
 }
 
 const pcssRule = {
     test: /\.pcss$/,
     use: [
-        `style-loader`,
-        `css-loader`,
-        {
-            loader: `postcss-loader`,
-            options: {
-                plugins: function () {
-                    return [
-                        PostcssImport(),
-                        precss,
-                        cssnext,
-                    ]
-                },
-            },
-        },
+        `happypack/loader?id=pcss`
     ],
 }
 
 const lessRule = {
     test: /\.less$/,
     use: [
-        `style-loader`,
-        `css-loader`,
-        `less-loader`,
+        `happypack/loader?id=less`
     ],
 }
 
 const fileRule = {
     test: /\.(png|jpg|gif)$/,
     use: [
+        `happypack/loader?id=file`
+    ],
+}
+
+
+const jsHappyPack = new HappyPack({
+    id: 'js',
+    loaders: [
+        `babel-loader?cacheDirectory`,
+    ],
+})
+
+const cssHappyPack = new HappyPack({
+    id: 'css',
+    loaders: [
+        `style-loader`,
+        `css-loader`,
+    ],
+})
+
+const pcssHappyPack = new HappyPack({
+    id: 'pcss',
+    loaders: [
+        `style-loader`,
+        `css-loader`,
+        `postcss-loader`,
+        // {
+        //     loader: `postcss-loader`,
+        //     options: {
+        //         plugins: function () {
+        //             return [
+        //                 PostcssImport(),
+        //                 precss,
+        //                 cssnext,
+        //             ]
+        //         },
+        //     },
+        // },
+    ],
+})
+
+
+const lessHappyPack = new HappyPack({
+    id: 'less',
+    loaders: [
+        `style-loader`,
+        `css-loader`,
+        `less-loader`,
+    ],
+})
+
+const fileHappyPack = new HappyPack({
+    id: 'file',
+    loaders: [
         {
             loader: `url-loader`,
             options: {
@@ -82,7 +183,8 @@ const fileRule = {
             },
         },
     ],
-}
+})
+
 
 // default webpack config
 const webpackConfig = {
@@ -117,6 +219,17 @@ const webpackConfig = {
             `NODE_ENV`,
         ]),
         new webpack.NamedModulesPlugin(),
+
+        jsHappyPack,
+        cssHappyPack,
+        pcssHappyPack,
+        lessHappyPack,
+        fileHappyPack,
+
+        new webpack.DllReferencePlugin({
+            manifest: require("../build/dll-manifest.json") // eslint-disable-line
+        }),
+
         new webpack.optimize.CommonsChunkPlugin({
             name: COMMON_CHUNK_NAME,
             // pages rests in different folder levels
@@ -139,7 +252,7 @@ entryNameList.forEach((entryName) => {
         path.join(__dirname, `../${SOURCE_PATH}/${MAIN_FOLDER}/${entryName}.js`),
     ]
 
-    webpackConfig.plugins.push(new HtmlWebpackPlugin({
+    const htmlWebpackPlugin = new HtmlWebpackPlugin({
         template: `${SOURCE_PATH}/${VIEW_FOLDER}/index.html`,
         filename: `${VIEW_FOLDER}/${entryName}.html`,
         hash: true,
@@ -148,7 +261,9 @@ entryNameList.forEach((entryName) => {
             COMMON_CHUNK_NAME,
             entryName,
         ],
-    }))
+    })
+
+    webpackConfig.plugins.push(htmlWebpackPlugin)
 
 })
 
