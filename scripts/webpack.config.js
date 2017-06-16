@@ -72,18 +72,18 @@ const NODE_ENV = process.env.NODE_ENV || PRODUCTION
 //     ],
 // }
 //
-// const fileRule = {
-//     test: /\.(png|jpg|gif)$/,
-//     use: [
-//         {
-//             loader: `url-loader`,
-//             options: {
-//                 limit: 8192,
-//                 name: `images/[name]-[hash].[ext]`,
-//             },
-//         },
-//     ],
-// }
+const fileRule = {
+    test: /\.(png|jpg|gif)$/,
+    use: [
+        {
+            loader: `url-loader`,
+            options: {
+                limit: 8192,
+                name: `images/[name]-[hash].[ext]`,
+            },
+        },
+    ],
+}
 
 
 // Ensure `postcss` key is extracted
@@ -118,12 +118,12 @@ const lessRule = {
     ],
 }
 
-const fileRule = {
-    test: /\.(png|jpg|gif)$/,
-    use: [
-        `happypack/loader?id=file`
-    ],
-}
+// const fileRule = {
+//     test: /\.(png|jpg|gif)$/,
+//     use: [
+//         `happypack/loader?id=file`
+//     ],
+// }
 
 
 const jsHappyPack = new HappyPack({
@@ -172,18 +172,18 @@ const lessHappyPack = new HappyPack({
     ],
 })
 
-const fileHappyPack = new HappyPack({
-    id: 'file',
-    loaders: [
-        {
-            loader: `url-loader`,
-            options: {
-                limit: 8192,
-                name: `images/[name]-[hash].[ext]`,
-            },
-        },
-    ],
-})
+// const fileHappyPack = new HappyPack({
+//     id: 'file',
+//     loaders: [
+//         {
+//             loader: `url-loader`,
+//             options: {
+//                 limit: 8192,
+//                 name: `images/[name]-[hash].[ext]`,
+//             },
+//         },
+//     ],
+// })
 
 
 // default webpack config
@@ -224,7 +224,7 @@ const webpackConfig = {
         cssHappyPack,
         pcssHappyPack,
         lessHappyPack,
-        fileHappyPack,
+        // fileHappyPack,
 
         new webpack.DllReferencePlugin({
             manifest: require("../build/dll-manifest.json") // eslint-disable-line
@@ -238,7 +238,7 @@ const webpackConfig = {
     ],
     resolve: {
         extensions: ['.web.js', '.js', '.json', '.jsx',],
-    }
+    },
 }
 
 // get entry
