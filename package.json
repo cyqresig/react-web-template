@@ -76,5 +76,8 @@
         "> 1%",
         "ie 9"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "react-addons-css-transition-group": "^15.6.0",
+        "react-transition-group": "^2.2.0"
+    }
 }

@@ -9,6 +9,7 @@ import Todo from '../component/Todo'
 import action from '../action'
 // import { bindActionCreators, } from 'redux'
 import { connect, } from 'react-redux'
+import ReactCSSTransitionGroup from "react-addons-css-transition-group"
 
 @connect(
     state => ({
@@ -64,26 +65,35 @@ class TodoListContainer extends Component {
 
         return (
             <div className="todo-list">
-                {
-                    todos.map((todo) => {
-                        const {
-                            id,
-                            complete,
-                            title,
-                        } = todo
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionAppear
+                    transitionEnter
+                    transitionLeave
+                    transitionAppearTimeout={1000}
+                    transitionEnterTimeout={1000}
+                    transitionLeaveTimeout={1000}>
+                    {
+                        todos.map((todo) => {
+                            const {
+                                id,
+                                complete,
+                                title,
+                            } = todo
 
-                        return (
-                            <Todo
-                                key={id}
-                                // key={index}
-                                id={id}
-                                complete={complete}
-                                title={title}
-                                remove={removeTodo}
-                                router={router}/>
-                        )
-                    })
-                }
+                            return (
+                                <Todo
+                                    key={id}
+                                    // key={index}
+                                    id={id}
+                                    complete={complete}
+                                    title={title}
+                                    remove={removeTodo}
+                                    router={router}/>
+                            )
+                        })
+                    }
+                </ReactCSSTransitionGroup>
                 { fetching ? <div>loading...<br/><br/><br/></div> : null }
                 <input type="button" className="button" onClick={this.handleAddTodoClick} value="新增任务"/>
             </div>

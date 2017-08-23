@@ -49,7 +49,6 @@ class Todo extends PureComponent {
     }
 
     render() {
-        // console.log(`render ... todo-data`)
         const { complete, id, title, } = this.state
         const statusClassName = classNames('status', complete ? 'complete' : '')
 
