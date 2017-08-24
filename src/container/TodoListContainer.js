@@ -89,7 +89,9 @@ class TodoListContainer extends Component {
                                     complete={complete}
                                     title={title}
                                     remove={removeTodo}
-                                    router={router}/>
+                                    router={router}>
+                                    <span>{id} + 12345</span>
+                                </Todo>
                             )
                         })
                     }

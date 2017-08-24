@@ -57,6 +57,7 @@ class Todo extends PureComponent {
                 <span className="label">标题：{title}</span>
                 <span className="id">id: {id}</span>
                 <span className={statusClassName}>{complete ? '已完成' : '未完成'}</span>
+                <span {...this.props}/>
                 <input className="button" type="button" onClick={this.handleViewTodoClick} value="查看任务"/>
                 <input className="button" type="button" onClick={this.handleRemoveTodoClick} value="删除任务"/>
             </div>
